@@ -15,9 +15,8 @@ server.use("/products", productsRouter);
 server.listen(PORT, async () => {
   console.log("Server is listening on port" + PORT);
   await connectDB();
+  console.table(listEndpoints(server));
 });
-
-listEndpoints(server);
 
 server.on("error", (error) => {
   console.log("Server is stoppped ", error);
