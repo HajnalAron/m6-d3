@@ -1,18 +1,9 @@
 import { Router } from "express";
+import ProductCategory from "../../db/models/productCategory.js";
 import db from "../../db/models/relations.js";
 
 const { Category, Product } = db;
 const categoriesRouter = Router();
-
-categoriesRouter.get("/", async (req, res, next) => {
-  try {
-    const categories = await Category.findAll();
-    res.status(200).send(categories);
-  } catch (error) {
-    console.log(error);
-    next(error);
-  }
-});
 
 categoriesRouter.get("/:id", async (req, res, next) => {
   try {
@@ -23,6 +14,16 @@ categoriesRouter.get("/:id", async (req, res, next) => {
       }
     });
     res.status(200).send(category);
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+});
+categoriesRouter.get("/", async (req, res, next) => {
+  try {
+    console.log("teststs");
+    const categories = await Category.findAll();
+    res.status(200).send(categories);
   } catch (error) {
     console.log(error);
     next(error);
@@ -42,7 +43,10 @@ categoriesRouter.post("/", async (req, res, next) => {
 categoriesRouter.post("/:id", async (req, res, next) => {
   try {
     const category = await Category.create({
-      ...req.body,
+      ...req.body
+    });
+    await ProductCategory.create({
+      categoryId: category.id,
       productId: req.params.id
     });
     res.status(201).send(category);

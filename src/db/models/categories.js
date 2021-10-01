@@ -11,8 +11,7 @@ const Category = sequelize.define("category", {
   category_name: {
     type: DataTypes.STRING,
     allowNull: false
-  },
-  productId: { type: DataTypes.INTEGER, allowNull: true }
+  }
 });
 
 export default Category;

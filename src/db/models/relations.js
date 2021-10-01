@@ -2,6 +2,7 @@ import Product from "./products.js";
 import Review from "./reviews.js";
 import Category from "./categories.js";
 import ProductCategory from "./productCategory.js";
+import sequelize from "../index.js";
 
 Product.hasMany(Review);
 Review.belongsTo(Product);
