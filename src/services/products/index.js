@@ -1,12 +1,13 @@
 import { Router } from "express";
-import db from "../../db/models/index.js";
+import ProductCategory from "../../db/models/productCategory.js";
+import db from "../../db/models/relations.js";
 
-const { Product, Review } = db;
+const { Product, Review, Category } = db;
 const productsRouter = Router();
 
 productsRouter.get("/", async (req, res, next) => {
   try {
-    const products = await Product.findAll();
+    const products = await Product.findAll({ include: [Review, Category] });
     res.status(200).send(products);
   } catch (error) {
     console.log(error);
@@ -16,7 +17,12 @@ productsRouter.get("/", async (req, res, next) => {
 
 productsRouter.get("/:id", async (req, res, next) => {
   try {
-    const product = await Product.findByPk(req.params.id);
+    const product = await Product.findAll({
+      include: [Review, Category],
+      where: {
+        id: req.params.id
+      }
+    });
     res.status(200).send(product);
   } catch (error) {
     console.log(error);
