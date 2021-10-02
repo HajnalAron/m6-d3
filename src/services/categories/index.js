@@ -21,11 +21,10 @@ categoriesRouter.get("/:id", async (req, res, next) => {
 });
 categoriesRouter.get("/", async (req, res, next) => {
   try {
-    console.log("teststs");
     const categories = await Category.findAll();
     res.status(200).send(categories);
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     next(error);
   }
 });

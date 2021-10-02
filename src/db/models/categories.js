@@ -4,8 +4,8 @@ import Sequelize from "sequelize";
 const { DataTypes } = Sequelize;
 const Category = sequelize.define("category", {
   id: {
-    type: DataTypes.INTEGER,
     primaryKey: true,
+    type: DataTypes.INTEGER,
     autoIncrement: true
   },
   category_name: {
